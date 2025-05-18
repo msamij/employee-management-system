@@ -16,6 +16,6 @@ router.register(r'leave-requests', api.LeaveRequestViewSet)
 router.register(r'position-hierarchy', api.PositionHierarchyViewSet)
 
 urlpatterns = [
-    path("", views.index, name="index"),
+    path("employees/", views.employee_form, name="employee_form"),
     path('api/', include(router.urls)),
 ]

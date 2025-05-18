@@ -1,0 +1,80 @@
+{% extends 'base.html' %} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'style.css' %}" />
+{% endblock %} {% block content %}
+
+<header class="header">
+  <nav class="header-nav">
+    <a class="header-nav__link" href="#">Employees</a>
+    <a class="header-nav__link" href="#">Departments</a>
+    <a class="header-nav__link" href="#">Addresses</a>
+    <a class="header-nav__link" href="#">Salaries</a>
+    <a class="header-nav__link" href="#">Attendences</a>
+    <a class="header-nav__link" href="#">Employee Leaves</a>
+    <a class="header-nav__link" href="#">Employees positions</a>
+  </nav>
+</header>
+
+<div class="form-container">
+  <form class="form-container__form" action="/form/employees/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="first_name">First name</label>
+      <input required class="form-group__input" id="first_name" name="first_name" type="text" value="" />
+    </div>
+
+    <div class="form-group">
+      <label for="last_name">Last name</label>
+      <input required class="form-group__input" id="last_name" name="last_name" type="text" value="" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input required class="form-group__input" id="email" name="email" type="text" value="" />
+    </div>
+
+    <div class="form-group">
+      <label for="phone_no">Phone number</label>
+      <input required class="form-group__input" id="phone_no" name="phone_no" type="number" value="" />
+    </div>
+
+    <div class="form-group">
+      <label for="date_of_birth">Date of birth</label>
+      <input required class="form-group__input" id="date_of_birth" name="date_of_birth" type="date" value="" />
+    </div>
+
+    <div class="form-group">
+      <label for="hire_date">Hire date</label>
+      <input required class="form-group__input" id="hire_date" name="hire_date" type="date" value="" />
+    </div>
+
+    <div class="form-group">
+      <label for="job_title">Job title</label>
+      <input required class="form-group__input" id="job_title" name="job_title" type="text" value="" />
+    </div>
+
+    <div class="form-group">
+      <label for="status">Status</label>
+      <select required id="status" name="status">
+        <option value="Active">Active</option>
+        <option value="On Leave">On Leave</option>
+        <option value="Terminated">Terminated</option>
+        <option value="Resigned">Resigned</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="profile_picture">Profile picture</label>
+      <input required class="form-group__input" id="profile_picture" name="profile_picture" type="file" value="" />
+    </div>
+
+    <div class="form-group">
+      <label for="department">Department</label>
+      <select id="department" name="department">
+        <option value="" selected="">--------</option>
+      </select>
+    </div>
+
+    <button class="form-btn" type="submit">Save</button>
+  </form>
+</div>
+{% endblock %}
