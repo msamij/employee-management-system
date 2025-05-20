@@ -1,12 +1,24 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Employee Management System</title>
-    {% block css %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
   </head>
   <body>
+    <header class="header">
+      <nav class="header-nav">
+        <a class="header-nav__link" href="/form/employees/">Employees</a>
+        <a class="header-nav__link" href="/form/departments/">Departments</a>
+        <a class="header-nav__link" href="#">Addresses</a>
+        <a class="header-nav__link" href="#">Salaries</a>
+        <a class="header-nav__link" href="#">Attendences</a>
+        <a class="header-nav__link" href="#">Employee Leaves</a>
+        <a class="header-nav__link" href="#">Employees positions</a>
+      </nav>
+    </header>
     {% block content %}{% endblock %}
   </body>
 </html>

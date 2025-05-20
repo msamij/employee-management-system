@@ -1,18 +1,4 @@
-{% extends 'base.html' %} {% load static %} {% block css %}
-<link rel="stylesheet" href="{% static 'style.css' %}" />
-{% endblock %} {% block content %}
-
-<header class="header">
-  <nav class="header-nav">
-    <a class="header-nav__link" href="#">Employees</a>
-    <a class="header-nav__link" href="#">Departments</a>
-    <a class="header-nav__link" href="#">Addresses</a>
-    <a class="header-nav__link" href="#">Salaries</a>
-    <a class="header-nav__link" href="#">Attendences</a>
-    <a class="header-nav__link" href="#">Employee Leaves</a>
-    <a class="header-nav__link" href="#">Employees positions</a>
-  </nav>
-</header>
+{% extends 'base.html' %} {% block content %}
 
 <div class="form-container">
   <form class="form-container__form" action="/form/employees/" method="POST" enctype="multipart/form-data">

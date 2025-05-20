@@ -53,7 +53,7 @@ class Employee(TimeStampedModel):
         upload_to='profile_pics/', blank=True, null=True)
 
     def __str__(self):
-        return f"First name: {self.first_name}, Last name:{self.last_name}, Email:{self.email}"
+        return f"First name: {self.first_name}, Last name: {self.last_name}, Email: {self.email}"
 
 
 class Address(TimeStampedModel):

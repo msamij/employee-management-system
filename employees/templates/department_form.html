@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="form-container">
+  <form class="form-container__form" action="/form/departments/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input required class="form-group__input" id="name" name="name" type="text" value="" />
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input required class="form-group__input" id="description" name="description" type="text" value="" />
+    </div>
+
+    <div class="form-group">
+      <label for="manager">Manager</label>
+      <select id="manager" name="manager">
+        <option value="" selected="">--------</option>
+        {% for employee in employees %}
+        <option value="{{ employee.id }}">{{ employee.first_name }}, {{ employee.last_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <button class="form-btn" type="submit">Save</button>
+  </form>
+</div>
+{% endblock %}

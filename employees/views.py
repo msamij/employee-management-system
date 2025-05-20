@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Employee
+from .models import Employee, Department
 
 
 def employee_form(request):
@@ -26,4 +26,19 @@ def employee_form(request):
             profile_picture=profile_picture
         )
         return redirect('employee_form')
-    return render(request, 'index.html')
+    return render(request, 'employeeForm.html')
+
+
+def department_form(request):
+    if request.method == 'POST':
+        department_name = request.POST.get('name')
+        description = request.POST.get('description')
+        manager_id = request.POST.get('manager')
+
+        manager = Employee.objects.get(id=manager_id)
+        Department.objects.create(
+            name=department_name, description=description, manager=manager)
+        return redirect('department_form')
+
+    employees = Employee.objects.all()
+    return render(request, 'department_form.html', {'employees': employees})
