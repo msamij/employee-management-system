@@ -4,9 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_protect
-
 from django.contrib import messages
-
 
 from .models import Employee, Department
 
@@ -110,6 +108,7 @@ def employee_form(request):
     return render(request, 'employeeForm.html')
 
 
+@csrf_protect
 @login_required(login_url='signup')
 def department_form(request):
     if request.method == 'POST':
@@ -124,3 +123,33 @@ def department_form(request):
 
     employees = Employee.objects.all()
     return render(request, 'departmentForm.html', {'employees': employees})
+
+
+@csrf_protect
+@login_required(login_url='signup')
+def address_form(request):
+    return render(request, 'addressForm.html')
+
+
+@csrf_protect
+@login_required(login_url='signup')
+def salary_form(request):
+    return render(request, 'salaryForm.html')
+
+
+@csrf_protect
+@login_required(login_url='signup')
+def attendence_form(request):
+    return render(request, 'attendenceForm.html')
+
+
+@csrf_protect
+@login_required(login_url='signup')
+def leave_request_form(request):
+    return render(request, 'leaveForm.html')
+
+
+@csrf_protect
+@login_required(login_url='signup')
+def position_hierarchy_form(request):
+    return render(request, 'positionHierarchyForm.html')

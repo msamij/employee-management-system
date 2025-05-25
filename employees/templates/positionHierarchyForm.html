@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block content %}
+<div class="form-container">
+  <form class="form-container__form" action="/form/position-hierarchy/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="employee">Employee</label>
+      <select id="employee" name="employee">
+        <option value="" selected="">--------</option>
+        {% for employee in employees %}
+        <option value="{{ employee.id }}">{{ employee.first_name }}, {{ employee.last_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="reports_to">Reports to</label>
+      <select id="reports_to" name="reports_to">
+        <option value="" selected="">--------</option>
+        {% for employee in employees %}
+        <option value="{{ employee.id }}">{{ employee.first_name }}, {{ employee.last_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <button class="form-btn" type="submit">Save</button>
+  </form>
+</div>
+{% endblock %}

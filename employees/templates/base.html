@@ -10,13 +10,23 @@
   <body>
     <header class="header">
       <nav class="header-nav">
-        <a class="header-nav__link" href="/form/employees/">Employees</a>
-        <a class="header-nav__link" href="/form/departments/">Departments</a>
-        <a class="header-nav__link" href="#">Addresses</a>
-        <a class="header-nav__link" href="#">Salaries</a>
-        <a class="header-nav__link" href="#">Attendences</a>
-        <a class="header-nav__link" href="#">Employee Leaves</a>
-        <a class="header-nav__link" href="#">Employees positions</a>
+        <a class="header-nav__link" href="/form/employees/">Employee form</a>
+        <a class="header-nav__link" href="/form/departments/">Department form</a>
+        <a class="header-nav__link" href="/form/address/">Address form</a>
+        <a class="header-nav__link" href="/form/salaries/">Salary form</a>
+        <a class="header-nav__link" href="/form/attendence/">Attendence form</a>
+        <a class="header-nav__link" href="/form/leave-requests/">Employee leave form</a>
+        <a class="header-nav__link" href="/form/position-hierarchy/">Employee position form</a>
+      </nav>
+
+      <nav class="header-nav">
+        <a class="header-nav__link" href="/form/employees/">View employees data</a>
+        <a class="header-nav__link" href="/form/departments/">View departments data</a>
+        <a class="header-nav__link" href="#">View address data</a>
+        <a class="header-nav__link" href="#">View salaries</a>
+        <a class="header-nav__link" href="#">View attendence data</a>
+        <a class="header-nav__link" href="#">View employee leaves data</a>
+        <a class="header-nav__link" href="#">View employee position data</a>
       </nav>
     </header>
     <form action="{% url 'logout' %}" class="header__form">

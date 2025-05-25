@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block content %}
+<div class="form-container">
+  <form class="form-container__form" action="/form/salaries/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="amount">Amount</label>
+      <input required class="form-group__input" id="amount" name="amount" type="text" value="" />
+    </div>
+
+    <div class="form-group">
+      <label for="currency">Currency</label>
+      <input required class="form-group__input" id="currency" name="currency" type="text" value="" />
+    </div>
+
+    <div class="form-group">
+      <label for="effective_from">Effective from</label>
+      <input required class="form-group__input" id="effective_from" name="effective_from" type="date" value="" />
+    </div>
+
+    <div class="form-group">
+      <label for="employee">Employee</label>
+      <select id="employee" name="employee">
+        <option value="" selected="">--------</option>
+        {% for employee in employees %}
+        <option value="{{ employee.id }}">{{ employee.first_name }}, {{ employee.last_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <button class="form-btn" type="submit">Save</button>
+  </form>
+</div>
+{% endblock %}

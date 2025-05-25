@@ -1,0 +1,43 @@
+{% extends 'base.html' %} {% block content %}
+<div class="form-container">
+  <form class="form-container__form" action="/form/leave-requests/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="form-group">
+      <label for="date">Start Date</label>
+      <input required class="form-group__input" id="start_date" name="start_date" type="date" value="" />
+    </div>
+
+    <div class="form-group">
+      <label for="date">End Date</label>
+      <input required class="form-group__input" id="end_date" name="end_date" type="date" value="" />
+    </div>
+
+    <div class="form-group">
+      <label for="reason">Reason</label>
+      <textarea required class="form-group__input" name="reason" id="reason"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="status">Status</label>
+      <select id="status" name="status">
+        <option value="Present">Pending</option>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="employee">Employee</label>
+      <select id="employee" name="employee">
+        <option value="" selected="">--------</option>
+        {% for employee in employees %}
+        <option value="{{ employee.id }}">{{ employee.first_name }}, {{ employee.last_name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <button class="form-btn" type="submit">Save</button>
+  </form>
+</div>
+{% endblock %}

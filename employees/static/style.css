@@ -20,13 +20,17 @@ body {
 
 .header {
   padding: 4rem 0;
-  max-width: 114rem;
-  margin: auto;
+  width: 100%;
+  /* margin: auto; */
+  /* max-width: 114rem; */
 }
 .header-nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 5px solid #f4a261;
 }
 .header-nav__link:visited,
 .header-nav__link:link {
@@ -34,10 +38,11 @@ body {
   font-size: 1.8rem;
   color: inherit;
   transition: all 0.1s;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid transparent;
 }
 
 .header-nav__link:hover {
-  padding-bottom: 0.5rem;
   border-bottom: 2px solid #333;
 }
 
