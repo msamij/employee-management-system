@@ -19,6 +19,7 @@ router.register(r'position-hierarchy', api.PositionHierarchyViewSet)
 urlpatterns = [
     path('', views.main_page, name='main_page'),
     path('signup/', views.signup_form, name='signup'),
+    path('login/', views.login_form, name='login'),
     path('logout/', views.logout_user, name='logout'),
     path("employees/", views.employee_form, name="employee_form"),
     path('departments/', views.department_form, name='department_form'),

@@ -11,6 +11,34 @@
     <link rel="stylesheet" href="{% static 'register/main.css' %}" />
   </head>
   <body>
-    {% block content %}{% endblock %}
+    <div class="box-left">
+      <header class="header">
+        <h2 class="header__heading--primary">
+          Employee Management System
+          <span class="header__heading--secondary">for keeping track of your employees.</span>
+        </h2>
+      </header>
+
+      <footer class="footer">
+        <ul class="footer__items">
+          <li class="footer__item">
+            <a class="footer__link" href="#">Terms of Service</a>
+          </li>
+          <li class="footer__item">
+            <a class="footer__link" href="#">Privacy Policy</a>
+          </li>
+          <li class="footer__item">
+            <a class="footer__link" href="#">Contact Us</a>
+          </li>
+        </ul>
+      </footer>
+    </div>
+
+    <div class="box-right">
+      <form class="form" method="post">
+        <div class="message"></div>
+        {% csrf_token %} {% block content %}{% endblock %}
+      </form>
+    </div>
   </body>
 </html>

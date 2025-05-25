@@ -1,5 +1,5 @@
 from django.http import HttpResponseForbidden
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -11,14 +11,28 @@ from django.contrib import messages
 from .models import Employee, Department
 
 
+def redirect_authenticated_user(request, redirect_route):
+    """Redirect authenticated normal users to route provided in redite_route, forbid admins."""
+    if request.user.is_superuser or request.user.is_staff:
+        return HttpResponseForbidden("Admins are not allowed to access this page.")
+    if request.user.is_authenticated:
+        return redirect(redirect_route)
+    return None
+
+
 def main_page(request):
-    if (not request.user.is_superuser) or (not request.user.is_staff):
-        return redirect('employee_form')
-    return HttpResponseForbidden("Admins are not allowed to access this page.")
+    response = redirect_authenticated_user(request, 'employee_form')
+    if response:
+        return response
+    return redirect('signup')
 
 
 @csrf_protect
 def signup_form(request):
+    response = redirect_authenticated_user(request, 'employee_form')
+    if response:
+        return response
+
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
@@ -41,9 +55,25 @@ def signup_form(request):
     return render(request, 'register/signup.html')
 
 
+@csrf_protect
 def login_form(request):
+    response = redirect_authenticated_user(request, 'employee_form')
+    if response:
+        return response
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('employee_form')
+        else:
+            messages.error(request, 'Invalid credentials.')
+            return redirect('login')
+
     return render(request, 'register/login.html')
-# @login_required(login_url='signup')
 
 
 def logout_user(request):
@@ -52,10 +82,8 @@ def logout_user(request):
 
 
 @csrf_protect
+@login_required(login_url='signup')
 def employee_form(request):
-    if not request.user.is_authenticated:
-        return redirect('signup')
-
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -82,6 +110,7 @@ def employee_form(request):
     return render(request, 'employeeForm.html')
 
 
+@login_required(login_url='signup')
 def department_form(request):
     if request.method == 'POST':
         department_name = request.POST.get('name')
