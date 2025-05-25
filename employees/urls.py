@@ -29,7 +29,7 @@ urlpatterns = [
     path('attendence/', views.attendence_form, name='attendence_form'),
     path('leave-requests/', views.leave_request_form, name='leave_request_form'),
     path('position-hierarchy/', views.position_hierarchy_form,
-         name='position-hierarchy'),
+         name='position_hierarchy'),
 
 
     path('api/', include(router.urls)),

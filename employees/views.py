@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import messages
 
-from .models import Employee, Department
+from .models import *
 
 
 def redirect_authenticated_user(request, redirect_route):
@@ -116,9 +116,16 @@ def department_form(request):
         description = request.POST.get('description')
         manager_id = request.POST.get('manager')
 
-        manager = Employee.objects.get(id=manager_id)
+        manager = None
+        if manager_id:
+            try:
+                manager = Employee.objects.get(id=manager_id)
+            except Employee.DoesNotExist:
+                manager = None
+
         Department.objects.create(
             name=department_name, description=description, manager=manager)
+
         return redirect('department_form')
 
     employees = Employee.objects.all()
@@ -128,28 +135,98 @@ def department_form(request):
 @csrf_protect
 @login_required(login_url='signup')
 def address_form(request):
-    return render(request, 'addressForm.html')
+    if request.method == 'POST':
+        street = request.POST.get('street')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        country = request.POST.get('country')
+        zipcode = request.POST.get('zipcode')
+        address_type = request.POST.get('address_type')
+        employee_id = request.POST.get('employee')
+
+        employee = Employee.objects.get(id=employee_id)
+
+        Address.objects.create(employee=employee, street=street, city=city,
+                               state=state, country=country, zip_code=zipcode,
+                               address_type=address_type)
+        return redirect('address_form')
+
+    employees = Employee.objects.all()
+    return render(request, 'addressForm.html', {'employees': employees})
 
 
 @csrf_protect
 @login_required(login_url='signup')
 def salary_form(request):
-    return render(request, 'salaryForm.html')
+    if request.method == 'POST':
+        amount = request.POST.get('amount')
+        currency = request.POST.get('currency')
+        effective_from = request.POST.get('effective_from')
+        employee_id = request.POST.get('employee')
+
+        employee = Employee.objects.get(id=employee_id)
+
+        Salary.objects.create(employee=employee, amount=amount,
+                              currency=currency, effective_from=effective_from)
+        return redirect('salary_form')
+
+    employees = Employee.objects.all()
+    return render(request, 'salaryForm.html', {'employees': employees})
 
 
 @csrf_protect
 @login_required(login_url='signup')
 def attendence_form(request):
-    return render(request, 'attendenceForm.html')
+    if request.method == 'POST':
+        date = request.POST.get('get')
+        check_in_time = request.POST.get('check_in_time')
+        check_out_time = request.POST.get('check_out_time')
+        status = request.POST.get('status')
+        employee_id = request.POST.get('employee')
+
+        employee = Employee.objects.get(id=employee_id)
+        Attendance.objects.create(employee=employee, date=date,
+                                  check_in_time=check_in_time, check_out_time=check_out_time,
+                                  status=status)
+        return redirect('attendence_form')
+
+    employees = Employee.objects.all()
+    return render(request, 'attendenceForm.html', {'employees': employees})
 
 
 @csrf_protect
 @login_required(login_url='signup')
 def leave_request_form(request):
-    return render(request, 'leaveForm.html')
+    if request.method == 'POST':
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        reason = request.POST.get('reason')
+        status = request.POST.get('status')
+        employee_id = request.POST.get('employee')
+
+        employee = Employee.objects.get(id=employee_id)
+        LeaveRequest.objects.create(employee=employee, start_date=start_date,
+                                    end_date=end_date, reason=reason, status=status)
+
+        return redirect('leave_request_form')
+
+    employees = Employee.objects.all()
+    return render(request, 'leaveForm.html', {'employees': employees})
 
 
 @csrf_protect
 @login_required(login_url='signup')
 def position_hierarchy_form(request):
-    return render(request, 'positionHierarchyForm.html')
+    if request.method == 'POST':
+        employee_id = request.POST.get('employee')
+        reports_to = request.POST.get('reports_to')
+
+        employee = Employee.objects.get(id=employee_id)
+        employee_manager = Employee.objects.get(id=reports_to)
+        PositionHierarchy.objects.create(
+            employee=employee, reports_to=employee_manager)
+
+        return redirect('position_hierarchy')
+
+    employees = Employee.objects.all()
+    return render(request, 'positionHierarchyForm.html', {'employees': employees})
