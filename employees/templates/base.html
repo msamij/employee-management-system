@@ -19,6 +19,10 @@
         <a class="header-nav__link" href="#">Employees positions</a>
       </nav>
     </header>
+    <form action="{% url 'logout' %}" class="header__form">
+      {% csrf_token %}
+      <button type="submit" class="btn-primary btn-primary--orange">Logout</button>
+    </form>
     {% block content %}{% endblock %}
   </body>
 </html>

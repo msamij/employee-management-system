@@ -40,8 +40,10 @@ INSTALLED_APPS = [
 
     'django_extensions',
     'rest_framework',
+    'rest_framework_simplejwt',
 
     'employees.apps.EmployeesConfig',
+    'jwtauth',
 ]
 
 MIDDLEWARE = [
@@ -70,6 +72,12 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
 
 WSGI_APPLICATION = 'server.wsgi.application'
 

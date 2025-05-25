@@ -1,8 +1,61 @@
+from django.http import HttpResponseForbidden
+from django.contrib.auth import login, logout
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_protect
+
+from django.contrib import messages
+
+
 from .models import Employee, Department
 
 
+def main_page(request):
+    if (not request.user.is_superuser) or (not request.user.is_staff):
+        return redirect('employee_form')
+    return HttpResponseForbidden("Admins are not allowed to access this page.")
+
+
+@csrf_protect
+def signup_form(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Username already exists.')
+            return redirect('signup')
+
+        user = User.objects.create_user(
+            username=username,
+            email=email,
+            password=password
+        )
+
+        login(request, user)
+        messages.success(request, 'User logged in successfully.')
+        return redirect('employee_form')
+
+    return render(request, 'register/signup.html')
+
+
+def login_form(request):
+    return render(request, 'register/login.html')
+# @login_required(login_url='signup')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('main_page')
+
+
+@csrf_protect
 def employee_form(request):
+    if not request.user.is_authenticated:
+        return redirect('signup')
+
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -41,4 +94,4 @@ def department_form(request):
         return redirect('department_form')
 
     employees = Employee.objects.all()
-    return render(request, 'department_form.html', {'employees': employees})
+    return render(request, 'departmentForm.html', {'employees': employees})
