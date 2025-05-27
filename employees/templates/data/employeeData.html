@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'data/main.css' %}" />
+{% endblock %} {% block content %}
+<div class="text-box">
+  <h1 class="heading-main">Employee data</h1>
+</div>
+
+{% if page_obj.object_list %} {% with employee=page_obj.object_list.0 %}
+
+<main class="container">
+  <div class="img-box">
+    {% if employee.profile_picture %}
+    <img class="img-box__img" src="{{ employee.profile_picture.url }}" alt="" />
+    {% endif %}
+  </div>
+  <h2 class="container__heading">First Name: <span>{{ employee.first_name }}</span></h2>
+  <h2 class="container__heading">Last Name: <span>{{ employee.last_name }}</span></h2>
+  <h2 class="container__heading">Email: <span>{{ employee.email }}</span></h2>
+  <h2 class="container__heading">Phone number: <span>{{ employee.phone_number }}</span></h2>
+  <h2 class="container__heading">Date of birth: <span>{{ employee.date_of_birth }}</span></h2>
+  <h2 class="container__heading">Hire date: <span>{{ employee.hire_date }}</span></h2>
+  <h2 class="container__heading">Job title: <span>{{ employee.job_title }}</span></h2>
+  <h2 class="container__heading">Status: <span>{{ employee.status }}</span></h2>
+  <h2 class="container__heading">Department: <span>{{ employee.department.name }}</span></h2>
+</main>
+
+<div class="pagination">
+  {% if page_obj.has_previous %}
+  <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+  {% endif %} {% if page_obj.has_next %}
+  <a href="?page={{ page_obj.next_page_number }}">Next</a>
+  {% endif %}
+</div>
+{% endwith %} {% else %}
+<p>No employee data available.</p>
+{% endif %} {% endblock %}

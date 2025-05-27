@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Employee Management System</title>
     <link rel="stylesheet" href="{% static 'style.css' %}" />
+    {% block extra_css %}{% endblock %}
   </head>
   <body>
     <header class="header">
@@ -20,8 +21,8 @@
       </nav>
 
       <nav class="header-nav">
-        <a class="header-nav__link" href="/form/employees/">View employees data</a>
-        <a class="header-nav__link" href="/form/departments/">View departments data</a>
+        <a class="header-nav__link" href="/dashboard/employee-data/?page=1">View employees data</a>
+        <a class="header-nav__link" href="/data/departments/">View departments data</a>
         <a class="header-nav__link" href="#">View address data</a>
         <a class="header-nav__link" href="#">View salaries</a>
         <a class="header-nav__link" href="#">View attendence data</a>

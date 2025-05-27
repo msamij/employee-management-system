@@ -1,0 +1,37 @@
+.text-box {
+  text-align: center;
+}
+
+.heading-main {
+  display: inline-block;
+  font-size: 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 5px solid #f4a261;
+  margin: 1.5rem 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.container__heading {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+.container__heading span {
+  font-weight: 300;
+}
+
+.img-box {
+  padding: 1rem;
+  border: 5px solid #f4a261;
+}
+.img-box__img {
+  height: 150px;
+  border-radius: 5px;
+}

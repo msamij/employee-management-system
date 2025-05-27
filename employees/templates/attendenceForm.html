@@ -1,4 +1,6 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'style.css' %}" />
+{% endblock %} {% block content %}
 <div class="form-container">
   <form class="form-container__form" action="/form/attendence/" method="POST" enctype="multipart/form-data">
     {% csrf_token %}

@@ -32,5 +32,7 @@ urlpatterns = [
          name='position_hierarchy'),
 
 
+    path('employee-data/', views.employee_data, name='employee-data'),
+
     path('api/', include(router.urls)),
 ]
