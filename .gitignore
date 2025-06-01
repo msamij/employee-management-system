@@ -4,7 +4,7 @@
 
 **/migrations/
 
-profile_pics/
+/media/profile_pics/
 
 db.sqlite3
 
