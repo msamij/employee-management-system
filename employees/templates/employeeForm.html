@@ -56,6 +56,9 @@
       <label for="department">Department</label>
       <select id="department" name="department">
         <option value="" selected="">--------</option>
+        {% for department in departments %}
+        <option value="{{ department.id }}">{{ department.name }}</option>
+        {% endfor %}
       </select>
     </div>
 

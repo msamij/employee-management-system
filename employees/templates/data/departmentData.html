@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'data/main.css' %}" />
+{% endblock %} {% block content %}
+<div class="text-box">
+  <h1 class="heading-main">Department data</h1>
+</div>
+
+{% if page_obj %} {% with department=page_obj.object_list.0 %}
+<main class="container">
+  <h2 class="container__heading">Department Name: <span>{{ department.name }}</span></h2>
+  <h2 class="container__heading">Description: <span>{{ department.description }}</span></h2>
+
+  {% if department.manager %}
+  <h2 class="container__heading">
+    Manager: <span>{{ department.manager.first_name }} {{ department.manager.last_name }}</span>
+  </h2>
+  {% else %}
+  <h2 class="container__heading">Manager: <span>Not Assigned</span></h2>
+  {% endif %}
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+    <a class="btn btn-primary btn-primary--orange" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %} {% if page_obj.has_next %}
+    <a class="btn btn-primary btn-primary--orange" href="?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+  </div>
+</main>
+
+{% endwith %} {% else %}
+<p class="paragraph-info">No Department data available.</p>
+{% endif %} {% endblock %}

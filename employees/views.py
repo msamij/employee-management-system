@@ -106,7 +106,9 @@ def employee_form(request):
             profile_picture=profile_picture
         )
         return redirect('employee_form')
-    return render(request, 'employeeForm.html')
+
+    departments = Department.objects.all()
+    return render(request, 'employeeForm.html', {'departments': departments})
 
 
 @csrf_protect
@@ -179,7 +181,7 @@ def salary_form(request):
 @login_required(login_url='signup')
 def attendence_form(request):
     if request.method == 'POST':
-        date = request.POST.get('get')
+        date = request.POST.get('date')
         check_in_time = request.POST.get('check_in_time')
         check_out_time = request.POST.get('check_out_time')
         status = request.POST.get('status')
@@ -235,8 +237,44 @@ def position_hierarchy_form(request):
 
 def employee_data(request):
     employee_list = Employee.objects.all().order_by('id')
-    paginator = Paginator(employee_list, 1)  # 1 employee per page
+    paginator = Paginator(employee_list, 1)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'data/employeeData.html', {'page_obj': page_obj})
+
+
+def department_data(request):
+    department_list = Department.objects.all().order_by('id')
+    paginator = Paginator(department_list, 1)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'data/departmentData.html', {'page_obj': page_obj})
+
+
+def address_data(request):
+    address_list = Address.objects.all().order_by('id')
+    paginator = Paginator(address_list, 1)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'data/addressData.html', {'page_obj': page_obj})
+
+
+def salary_data(request):
+    salary_list = Salary.objects.all().order_by('id')
+    paginator = Paginator(salary_list, 1)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'data/salaryData.html', {'page_obj': page_obj})
+
+
+def attendence_data(request):
+    attendence_list = Attendance.objects.all().order_by('id')
+    paginator = Paginator(attendence_list, 1)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'data/attendenceData.html', {'page_obj': page_obj})

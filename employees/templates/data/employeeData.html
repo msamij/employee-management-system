@@ -22,15 +22,16 @@
   <h2 class="container__heading">Job title: <span>{{ employee.job_title }}</span></h2>
   <h2 class="container__heading">Status: <span>{{ employee.status }}</span></h2>
   <h2 class="container__heading">Department: <span>{{ employee.department.name }}</span></h2>
+
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %} {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+  </div>
 </main>
 
-<div class="pagination">
-  {% if page_obj.has_previous %}
-  <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-  {% endif %} {% if page_obj.has_next %}
-  <a href="?page={{ page_obj.next_page_number }}">Next</a>
-  {% endif %}
-</div>
 {% endwith %} {% else %}
-<p>No employee data available.</p>
+<p class="paragraph-info">No Employee data available.</p>
 {% endif %} {% endblock %}

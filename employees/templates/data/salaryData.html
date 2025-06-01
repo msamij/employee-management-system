@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'data/main.css' %}" />
+{% endblock %} {% block content %}
+<div class="text-box">
+  <h1 class="heading-main">Employee Salary data</h1>
+</div>
+
+{% if page_obj %} {% with salary=page_obj.object_list.0 %}
+<main class="container">
+  <h2 class="container__heading">Amount: <span>{{ salary.amount }}</span></h2>
+  <h2 class="container__heading">Currency: <span>{{ salary.currency }}</span></h2>
+  <h2 class="container__heading">Effective from: <span>{{ salary.effective_from }}</span></h2>
+
+  {% if salary.employee %}
+  <h2 class="container__heading">Employee: <span>{{ salary.employee.first_name }} {{ salary.employee.last_name }}</span></h2>
+  {% else %}
+  <h2 class="container__heading">Employee: <span>Not Assigned</span></h2>
+  {% endif %}
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+    <a class="btn btn-primary btn-primary--orange" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %} {% if page_obj.has_next %}
+    <a class="btn btn-primary btn-primary--orange" href="?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+  </div>
+</main>
+
+{% endwith %} {% else %}
+<p class="paragraph-info">No salary data available.</p>
+{% endif %} {% endblock %}

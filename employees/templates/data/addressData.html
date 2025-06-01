@@ -1,0 +1,35 @@
+{% extends 'base.html' %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'data/main.css' %}" />
+{% endblock %} {% block content %}
+<div class="text-box">
+  <h1 class="heading-main">Employee Address data</h1>
+</div>
+
+{% if page_obj %} {% with address=page_obj.object_list.0 %}
+<main class="container">
+  <h2 class="container__heading">Street Name: <span>{{ address.street }}</span></h2>
+  <h2 class="container__heading">City: <span>{{ address.city }}</span></h2>
+  <h2 class="container__heading">State: <span>{{ address.state }}</span></h2>
+  <h2 class="container__heading">Country: <span>{{ address.country }}</span></h2>
+  <h2 class="container__heading">Zip code: <span>{{ address.zip_code }}</span></h2>
+  <h2 class="container__heading">Address type: <span>{{ address.address_type }}</span></h2>
+
+  {% if address.employee %}
+  <h2 class="container__heading">
+    Employee: <span>{{ address.employee.first_name }} {{ address.employee.last_name }}</span>
+  </h2>
+  {% else %}
+  <h2 class="container__heading">Employee: <span>Not Assigned</span></h2>
+  {% endif %}
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+    <a class="btn btn-primary btn-primary--orange" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %} {% if page_obj.has_next %}
+    <a class="btn btn-primary btn-primary--orange" href="?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+  </div>
+</main>
+
+{% endwith %} {% else %}
+<p class="paragraph-info">No Address data available.</p>
+{% endif %} {% endblock %}

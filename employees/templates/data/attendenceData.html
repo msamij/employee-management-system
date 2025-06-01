@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'data/main.css' %}" />
+{% endblock %} {% block content %}
+<div class="text-box">
+  <h1 class="heading-main">Employee Attendence data</h1>
+</div>
+
+{% if page_obj %} {% with attendence=page_obj.object_list.0 %}
+<main class="container">
+  <h2 class="container__heading">Date: <span>{{ attendence.date }}</span></h2>
+  <h2 class="container__heading">Check in time: <span>{{ attendence.check_in_time }}</span></h2>
+  <h2 class="container__heading">Check out time: <span>{{ attendence.check_out_time }}</span></h2>
+  <h2 class="container__heading">Status: <span>{{ attendence.status }}</span></h2>
+
+  {% if attendence.employee %}
+  <h2 class="container__heading">
+    Employee: <span>{{ attendence.employee.first_name }} {{ attendence.employee.last_name }}</span>
+  </h2>
+  {% else %}
+  <h2 class="container__heading">Employee: <span>Not Assigned</span></h2>
+  {% endif %}
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+    <a class="btn btn-primary btn-primary--orange" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %} {% if page_obj.has_next %}
+    <a class="btn btn-primary btn-primary--orange" href="?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+  </div>
+</main>
+
+{% endwith %} {% else %}
+<p class="paragraph-info">No Attendence data available.</p>
+{% endif %} {% endblock %}

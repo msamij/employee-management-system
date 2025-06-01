@@ -3,8 +3,6 @@ from rest_framework.routers import DefaultRouter
 
 from . import api
 from . import views
-from jwtauth import views as jwtauth_views
-
 
 router = DefaultRouter()
 
@@ -33,6 +31,10 @@ urlpatterns = [
 
 
     path('employee-data/', views.employee_data, name='employee-data'),
+    path('department-data/', views.department_data, name='department-data'),
+    path('address-data/', views.address_data, name='address-data'),
+    path('salary-data/', views.salary_data, name='salary-data'),
+    path('attendence-data/', views.attendence_data, name='attendence-data'),
 
     path('api/', include(router.urls)),
 ]
