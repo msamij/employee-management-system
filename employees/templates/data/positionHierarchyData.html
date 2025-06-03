@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% load static %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'data/main.css' %}" />
+{% endblock %} {% block content %}
+<div class="text-box">
+  <h1 class="heading-main">Employee Position Hierarchy data</h1>
+</div>
+
+{% if page_obj.object_list %} {% with employee_position=page_obj.object_list.0 %}
+
+<main class="container">
+  {% if employee_position.employee %}
+  <h2 class="container__heading">
+    Employee: <span>{{ employee_position.employee.first_name }} {{ employee_position.employee.last_name }}</span>
+  </h2>
+  {% else %}
+  <h2 class="container__heading">Employee: <span>Not Assigned</span></h2>
+  {% endif %}
+
+  <!--  -->
+  {% if employee_position.reports_to %}
+  <h2 class="container__heading">
+    Reports to: <span>{{ employee_position.reports_to.first_name }} {{ employee_position.reports_to.last_name }}</span>
+  </h2>
+  {% else %}
+  <h2 class="container__heading">Employee: <span>Not Assigned</span></h2>
+  {% endif %}
+
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+    <a class="btn btn-primary btn-primary--orange" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %} {% if page_obj.has_next %}
+    <a class="btn btn-primary btn-primary--orange" href="?page={{ page_obj.next_page_number }}">Next</a>
+    {% endif %}
+  </div>
+</main>
+
+{% endwith %} {% else %}
+<p class="paragraph-info">No Employee position data available.</p>
+{% endif %} {% endblock %}

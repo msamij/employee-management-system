@@ -92,11 +92,21 @@ def employee_form(request):
         hire_date = request.POST.get('hire_date')
         job_title = request.POST.get('job_title')
         status = request.POST.get('status')
+        department_id = request.POST.get('department')
+
         profile_picture = request.FILES.get('profile_picture')
+
+        department = None
+        if department_id:
+            try:
+                department = Department.objects.get(id=department)
+            except Department.DoesNotExist:
+                department = None
 
         employee = Employee.objects.create(
             first_name=first_name,
             last_name=last_name,
+            department=department,
             email=email,
             phone_number=phone_no,
             date_of_birth=date_of_birth,
@@ -278,3 +288,21 @@ def attendence_data(request):
     page_obj = paginator.get_page(page_number)
 
     return render(request, 'data/attendenceData.html', {'page_obj': page_obj})
+
+
+def employee_leave_data(request):
+    employee_leave_list = LeaveRequest.objects.all().order_by('id')
+    paginator = Paginator(employee_leave_list, 1)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'data/leaveData.html', {'page_obj': page_obj})
+
+
+def employee_hierarchy_data(request):
+    employee_position_list = PositionHierarchy.objects.all().order_by('id')
+    paginator = Paginator(employee_position_list, 1)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'data/positionHierarchyData.html', {'page_obj': page_obj})

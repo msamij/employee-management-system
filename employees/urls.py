@@ -35,6 +35,11 @@ urlpatterns = [
     path('address-data/', views.address_data, name='address-data'),
     path('salary-data/', views.salary_data, name='salary-data'),
     path('attendence-data/', views.attendence_data, name='attendence-data'),
+    path('leave-request-data/', views.employee_leave_data,
+         name='leave-request-data'),
+
+    path('position-hierarchy-data/', views.employee_hierarchy_data,
+         name='position-hierarchy-data'),
 
     path('api/', include(router.urls)),
 ]

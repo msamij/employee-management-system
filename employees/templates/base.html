@@ -26,10 +26,11 @@
         <a class="header-nav__link" href="/dashboard/address-data/?page=1">View address data</a>
         <a class="header-nav__link" href="/dashboard/salary-data/?page=1">View salaries</a>
         <a class="header-nav__link" href="/dashboard/attendence-data/?page=1">View attendence data</a>
-        <a class="header-nav__link" href="#">View employee leaves data</a>
-        <a class="header-nav__link" href="#">View employee position data</a>
+        <a class="header-nav__link" href="/dashboard/leave-request-data/?page=1">View employee leaves data</a>
+        <a class="header-nav__link" href="/dashboard/position-hierarchy-data/?page=1">View employee position data</a>
       </nav>
     </header>
+
     <form action="{% url 'logout' %}" class="header__form">
       {% csrf_token %}
       <button type="submit" class="btn-primary btn-primary--orange">Logout</button>
